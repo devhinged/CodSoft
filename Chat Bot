@@ -1,0 +1,64 @@
+import time
+
+now = time.ctime()
+
+responses = {
+    "hi": "Hey!",
+    "how are you": "I am fine",
+    "what is your name": "I don't have any name as I am a Bot",
+    "what time is it now": now
+}
+
+def handle_query(query):
+    if "query" in query.lower():
+        print("Could you please explain your query in detail so that I can try to solve it?")
+        user_query = input("Explain your Query: ")
+        if "no" in user_query.lower():
+            print("Okay, no worries, To end the conversation enter (quit)")
+            return True
+        else:
+            print("Okay, I will assign you with our executive for this:", user_query)
+            bot_ask = input("did i solve your query: ")
+            if "yes" in bot_ask.lower():
+                print("hope you are satisfied with the solution")
+            else:
+                handle_query(user_query)
+                
+    else:
+        print(responses.get(query, "Sorry, I didn't understand what you wrote"))
+
+def main():
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == "quit":
+            print("Hope I have solved your query")
+            user_query = input("Any other query (yes/no): ").lower()
+            if user_query == "no":
+                print("Thank you! HAVE A GOOD DAY")
+                break
+            else:
+                user = input("Tell me your query:\n start with phrase My query: ")
+                if "no" in user.lower():
+                    print("Okay, no worries. HAVE A GOOD DAY")
+                    break
+                else:
+                    handle_query(user)
+        else:
+            handle_query(user_input)
+
+if __name__ == "__main__":
+    main()
+
+
+    
+    
+    
+        
+
+
+
+    
+    
+    
+
+
