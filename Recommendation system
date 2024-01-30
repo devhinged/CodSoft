@@ -1,0 +1,43 @@
+import pandas as pd
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
+
+# Sample user-item rating data
+data = {
+    'User': ['Dev', 'Javic', 'Neeraj', 'Aania', 'Zeel'],
+    'JAWAN': [0, 0, 0, 0, 0],  # Initialize with 0 ratings
+    '3-IDIOTS': [0, 0, 0, 0, 0],
+    'FIGHTER': [0, 0, 0, 0, 0],
+    'WAR': [0, 0, 0, 0, 0],
+}
+
+df = pd.DataFrame(data)
+df.set_index('User', inplace=True)
+
+# Function to get average ratings for each movie
+def get_average_ratings(user_ratings):
+    # Calculate the average rating for each movie
+    average_ratings = user_ratings.mean(axis=0)
+
+    return average_ratings
+
+# Take user ratings as input
+for movie in df.columns[0:]:  # Exclude the 'User' column
+    print(f"Enter ratings for users for {movie}:")
+    for user in df.index:
+        while True:
+            try:
+                rating = int(input(f"Enter rating for {user}: "))
+                if rating is not None:
+                    break
+                else:
+                    print("Please enter a valid rating.")
+            except ValueError:
+                print("Please enter a valid integer rating.")
+
+        df.at[user, movie] = rating
+
+# Get average ratings for each movie
+average_ratings = get_average_ratings(df)
+print(f"Average ratings for each movie:\n{average_ratings}")
+0
